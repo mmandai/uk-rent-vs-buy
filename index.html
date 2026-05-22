@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UK Rent vs Buy Calculator 2026 | Should I Buy or Keep Renting?</title>
+<meta name="description" content="Free UK rent vs buy calculator 2026. Compare buying vs renting over 10 years — equity built, deposit opportunity cost, total cost of ownership, break-even year. Updated for 2026 SDLT rates and UK house prices.">
+<meta name="keywords" content="rent vs buy calculator UK, should I buy or rent UK, rent or buy calculator, UK house price calculator, deposit opportunity cost, first time buyer calculator, mortgage vs rent UK, SDLT first time buyer, rent vs buy 2026">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+:root{
+  --ink:#0f1117;--ink2:#3a3f4d;--ink3:#7a8099;--ink4:#b0b6c8;
+  --paper:#f7f6f2;--paper2:#eeecea;--paper3:#e4e2dc;--white:#ffffff;
+  --rule:#dedad2;--gold:#c8a84b;--gold2:#a8882e;
+  --teal:#00897b;--teal2:#00695c;--teal-bg:#e8f5f3;
+  --red:#c62828;--red-bg:#fdecea;
+  --amber:#e65100;--amber-bg:#fff3e0;
+  --green:#2e7d32;--green-bg:#e8f5e9;
+  --blue:#1565c0;--blue-bg:#e8f0fe;
+  --serif:'Instrument Serif',Georgia,serif;
+  --sans:'Manrope',sans-serif;
+  --mono:'DM Mono','Courier New',monospace;
+  --r:6px;--r2:12px;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.06);
+}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;min-height:100vh;}
+.site-header{background:var(--white);border-bottom:1px solid var(--rule);padding:14px 0;position:sticky;top:0;z-index:200;box-shadow:0 1px 0 var(--rule);}
+.hd-inner{max-width:1160px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.logo{font-family:var(--sans);font-size:18px;font-weight:800;color:var(--ink);letter-spacing:-.01em;text-decoration:none;}
+.logo em{color:var(--gold);font-style:normal;}
+.hd-nav{display:flex;gap:24px;align-items:center;}
+.hd-nav a{font-size:13px;font-weight:500;color:var(--ink3);text-decoration:none;transition:color .15s;}
+.hd-nav a:hover{color:var(--ink);}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--rule);text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-40px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,rgba(200,168,75,.08) 0%,transparent 70%);pointer-events:none;}
+.hero-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.hero h1{font-family:var(--serif);font-size:clamp(28px,4vw,54px);line-height:1.08;letter-spacing:-.02em;color:var(--ink);margin-bottom:20px;white-space:nowrap;}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero-lead{font-size:16px;color:var(--ink2);line-height:1.7;max-width:600px;margin:0 auto 28px;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.pill{font-size:12px;font-weight:600;color:var(--ink2);background:var(--white);border:1px solid var(--rule);border-radius:20px;padding:5px 12px;}
+.calc-section{padding:48px 0 0;}
+.calc-layout{display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start;}
+@media(max-width:920px){.calc-layout{grid-template-columns:1fr;}}
+.panel{background:var(--white);border:1px solid var(--rule);border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;}
+.panel-head{padding:16px 24px;border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:10px;}
+.panel-head h2{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);}
+.panel-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+.panel-body{padding:24px;}
+.input-section{margin-bottom:28px;}
+.input-section:last-child{margin-bottom:0;}
+.input-section-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);padding-bottom:10px;margin-bottom:14px;border-bottom:1px solid var(--rule);}
+.field{margin-bottom:12px;}
+.field:last-child{margin-bottom:0;}
+.field-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+.field-label span{font-size:13px;font-weight:500;color:var(--ink2);}
+.field-label em{font-style:normal;font-size:11px;font-family:var(--mono);color:var(--ink4);}
+.input-wrap{position:relative;display:flex;align-items:center;}
+.input-prefix,.input-suffix{position:absolute;font-family:var(--mono);font-size:13px;color:var(--ink4);pointer-events:none;user-select:none;}
+.input-prefix{left:12px;}.input-suffix{right:12px;}
+input[type=number],select{width:100%;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);color:var(--ink);font-family:var(--mono);font-size:14px;padding:9px 12px;transition:border-color .15s,box-shadow .15s;-moz-appearance:textfield;appearance:textfield;}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;}
+input[type=number]:focus,select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,137,123,.1);background:var(--white);}
+.has-prefix input[type=number]{padding-left:26px;}
+.has-suffix input[type=number]{padding-right:34px;}
+select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b0b6c8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;-webkit-appearance:none;appearance:none;}
+.results-panel{position:sticky;top:80px;}
+.result-block{margin-bottom:16px;}
+.result-block-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--rule);}
+
+/* Winner display */
+.winner-display{border-radius:var(--r2);padding:20px;margin-bottom:16px;text-align:center;border:1px solid var(--rule);background:var(--paper);transition:all .3s;}
+.winner-display.buy{background:var(--green-bg);border-color:rgba(46,125,50,.2);}
+.winner-display.rent{background:var(--blue-bg);border-color:rgba(21,101,192,.2);}
+.winner-display.close{background:var(--amber-bg);border-color:rgba(230,81,0,.2);}
+.winner-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:8px;}
+.winner-amount{font-family:var(--mono);font-size:38px;font-weight:500;line-height:1;transition:color .3s;}
+.winner-display.buy .winner-amount{color:var(--green);}
+.winner-display.rent .winner-amount{color:var(--blue);}
+.winner-display.close .winner-amount{color:var(--amber);}
+.winner-sub{font-family:var(--mono);font-size:12px;color:var(--ink4);margin-top:6px;}
+
+.verdict{border-radius:var(--r);padding:14px 16px;margin-bottom:16px;display:flex;align-items:flex-start;gap:12px;font-size:13px;font-weight:700;transition:all .3s;line-height:1.5;}
+.verdict-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.verdict.good{background:var(--green-bg);color:var(--green);border:1px solid rgba(46,125,50,.25);}
+.verdict.warn{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(230,81,0,.25);}
+.verdict.blue{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(21,101,192,.25);}
+
+/* Comparison table */
+.compare-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;}
+.compare-table th{padding:8px 10px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:center;border-bottom:2px solid var(--rule);}
+.compare-table th.col-label{text-align:left;background:var(--paper);color:var(--ink4);}
+.compare-table th.col-buy{background:var(--green-bg);color:var(--green);}
+.compare-table th.col-rent{background:var(--blue-bg);color:var(--blue);}
+.compare-table td{padding:7px 10px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:11px;text-align:center;vertical-align:middle;}
+.compare-table td.label{text-align:left;font-family:var(--sans);font-size:12px;color:var(--ink3);}
+.compare-table td.buy-val{background:rgba(46,125,50,.04);}
+.compare-table td.rent-val{background:rgba(21,101,192,.04);}
+.compare-table tr.section-hdr td{background:var(--paper2);font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink4);padding:5px 10px;text-align:left;}
+.compare-table tr.total-row td{font-weight:700;font-size:12px;border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);}
+.compare-table tr.total-row td.buy-val{background:var(--green-bg);color:var(--green);}
+.compare-table tr.total-row td.rent-val{background:var(--blue-bg);color:var(--blue);}
+
+/* Year projection bar chart */
+.proj-section{margin-bottom:16px;}
+.proj-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink4);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--rule);}
+.proj-bars{display:flex;flex-direction:column;gap:5px;}
+.proj-row{display:flex;align-items:center;gap:8px;font-size:10px;}
+.proj-yr{font-family:var(--mono);color:var(--ink4);width:28px;flex-shrink:0;text-align:right;}
+.proj-track{flex:1;height:18px;background:var(--paper2);border-radius:3px;overflow:hidden;position:relative;}
+.proj-bar-buy{height:100%;border-radius:3px;position:absolute;top:0;left:0;transition:width .4s ease;}
+.proj-bar-rent{height:100%;border-radius:3px;position:absolute;top:0;left:0;opacity:.65;transition:width .4s ease;}
+.proj-diff{font-family:var(--mono);font-size:10px;width:60px;flex-shrink:0;text-align:right;}
+.proj-legend{display:flex;gap:16px;margin-top:8px;font-size:11px;color:var(--ink4);}
+.proj-legend span{display:flex;align-items:center;gap:5px;}
+.legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.metric{background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px;transition:all .3s;}
+.m-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink4);margin-bottom:5px;}
+.m-value{font-family:var(--mono);font-size:17px;font-weight:500;color:var(--ink);line-height:1;transition:color .3s;}
+.m-sub{font-family:var(--mono);font-size:10px;color:var(--ink4);margin-top:3px;}
+.metric.good{background:var(--green-bg);border-color:rgba(46,125,50,.2);}
+.metric.good .m-value{color:var(--green);}
+.metric.warn{background:var(--amber-bg);border-color:rgba(230,81,0,.2);}
+.metric.warn .m-value{color:var(--amber);}
+.metric.blue{background:var(--blue-bg);border-color:rgba(21,101,192,.2);}
+.metric.blue .m-value{color:var(--blue);}
+
+.affiliate{background:var(--ink);border-radius:var(--r2);padding:18px;color:var(--white);}
+.affiliate h4{font-size:13px;font-weight:700;margin-bottom:6px;}
+.affiliate p{font-size:12px;color:var(--ink4);margin-bottom:14px;line-height:1.5;}
+.btn-aff{display:block;width:100%;text-align:center;background:var(--gold);color:var(--ink);font-family:var(--sans);font-size:13px;font-weight:800;padding:11px 16px;border-radius:var(--r);text-decoration:none;letter-spacing:.02em;transition:background .15s;}
+.btn-aff:hover{background:var(--gold2);color:var(--white);}
+
+.explainer{padding:64px 0;}
+.section-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;text-align:center;}
+.section-title{font-family:var(--serif);font-size:clamp(26px,3.5vw,44px);line-height:1.1;letter-spacing:-.02em;color:var(--ink);margin-bottom:14px;text-align:center;}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-lead{font-size:16px;color:var(--ink2);line-height:1.7;max-width:560px;margin:0 auto 48px;text-align:center;}
+.explain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+.explain-card{background:var(--white);border:1px solid var(--rule);border-radius:var(--r2);padding:24px;box-shadow:var(--shadow);}
+.ec-num{font-family:var(--mono);font-size:11px;color:var(--gold);letter-spacing:.08em;margin-bottom:10px;text-align:center;}
+.ec-title{font-family:var(--serif);font-size:20px;color:var(--ink);margin-bottom:8px;text-align:center;}
+.formula{background:var(--paper);border-left:3px solid var(--gold);padding:8px 12px;font-family:var(--mono);font-size:11px;color:var(--teal2);border-radius:0 var(--r) var(--r) 0;margin:10px 0;text-align:center;}
+.ec-body{font-size:13px;color:var(--ink2);line-height:1.7;text-align:center;}
+
+.faq-section{padding:0 0 80px;}
+.faq-list{margin-top:40px;}
+.faq-item{border-top:1px solid var(--rule);padding:24px 0;}
+.faq-item:last-child{border-bottom:1px solid var(--rule);}
+.faq-q{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}
+.faq-q::after{content:'＋';font-size:18px;color:var(--ink4);flex-shrink:0;transition:transform .2s;margin-top:-2px;}
+.faq-item.open .faq-q::after{transform:rotate(45deg);color:var(--gold);}
+.faq-a{font-size:13px;color:var(--ink2);line-height:1.75;max-height:0;overflow:hidden;transition:max-height .3s ease;}
+.faq-a strong{color:var(--teal2);font-weight:600;}
+.faq-item.open .faq-a{max-height:600px;}
+
+footer{background:var(--ink);color:var(--gold);padding:40px 0;text-align:center;}
+.footer-inner{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:20px;margin-bottom:24px;}
+.footer-logo{font-family:var(--sans);font-weight:800;font-size:20px;color:var(--gold);}
+.footer-logo em{color:var(--white);font-style:normal;}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;}
+.footer-links a{font-size:12px;color:var(--white);opacity:.8;text-decoration:none;transition:opacity .15s;}
+.footer-links a:hover{opacity:1;}
+.footer-disclaimer{font-size:11px;line-height:1.7;color:var(--gold);opacity:.5;max-width:860px;margin:0 auto;border-top:1px solid rgba(200,168,75,.15);padding-top:20px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.panel{animation:fadeUp .4s ease both;}
+.results-panel .panel{animation-delay:.1s;}
+@media(max-width:560px){.wrap{padding:0 16px;}.panel-body{padding:16px;}.metric-grid{grid-template-columns:1fr;}.hero h1{white-space:normal;}}
+
+.ad-slot{
+  display:block;
+  background:linear-gradient(135deg,#f8f9fa 0%,#f1f3f4 100%);
+  border:1px dashed #d1d5db;
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#9ca3af;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  font-family:'DM Mono',monospace;
+}
+.ad-banner{ height:90px; margin:32px 0; }
+.ad-rect{ height:260px; margin:20px 0; }
+/* ── Methodology ── */
+.methodology-trigger{display:flex;align-items:center;justify-content:center;gap:14px;cursor:pointer;padding:14px 0;user-select:none;transition:opacity .2s;}
+.methodology-trigger:hover{opacity:.7;}
+.methodology-trigger-label{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);transition:color .2s;}
+.methodology-trigger:hover .methodology-trigger-label,.methodology-trigger.open .methodology-trigger-label{color:var(--gold);}
+.methodology-chevrons{font-size:16px;color:var(--ink4);transition:color .2s,transform .3s;line-height:1;}
+.methodology-trigger:hover .methodology-chevrons,.methodology-trigger.open .methodology-chevrons{color:var(--gold);}
+.methodology-trigger.open .methodology-chevrons{transform:rotate(180deg);}
+.methodology-box{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1);}
+.methodology-box.open{max-height:2000px;}
+.methodology-inner{padding:24px 4px 8px;text-align:center;}
+.meth-title{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--rule);text-align:center;}
+.meth-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:20px;}
+.meth-block{padding:0 4px;text-align:center;}
+.meth-block-title{font-size:12px;font-weight:800;color:var(--ink);margin-bottom:8px;letter-spacing:-.01em;}
+.meth-formula{font-family:var(--mono);font-size:11px;color:var(--ink);margin:8px 0;line-height:1.7;font-weight:500;}
+.meth-note{font-size:12px;color:var(--ink3);line-height:1.7;font-weight:500;}
+.meth-sources{font-size:11px;color:var(--ink4);font-family:var(--mono);border-top:1px solid var(--rule);padding-top:14px;margin-top:4px;line-height:1.8;text-align:center;}
+.meth-sources strong{color:var(--ink3);font-weight:600;}
+.meth-updated{font-size:11px;color:var(--ink4);font-family:var(--mono);margin-top:6px;text-align:center;}
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#0f1117;padding:16px 24px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;font-size:13px;}
+.cookie-banner p{max-width:560px;text-align:center;color:rgba(255,255,255,.7);}
+.cookie-banner a{color:#fff;text-decoration:underline;}
+.cookie-btn{padding:8px 20px;border-radius:40px;font-size:13px;font-weight:700;cursor:pointer;border:none;}
+.cookie-accept{background:#c8a84b;color:#0f1117;}
+.cookie-reject{background:transparent;color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.3)!important;}
+.cookie-buttons{display:flex;gap:8px;}
+@media(max-width:600px){.cookie-banner{flex-direction:column;text-align:center;}}
+</style>
+<script>
+function loadAnalytics(){
+  var s=document.createElement('script');s.async=true;
+  s.src='https://www.googletagmanager.com/gtag/js?id=G-S8GCBBSR58';
+  document.head.appendChild(s);
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments);}window.gtag=gtag;
+  gtag('js',new Date());gtag('config','G-S8GCBBSR58');
+  var s2=document.createElement('script');s2.async=true;
+  s2.src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4019637448990375';
+  s2.crossOrigin='anonymous';document.head.appendChild(s2);
+}
+if(localStorage.getItem('cookieConsent')==='accepted'){loadAnalytics();}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"UK Rent vs Buy Calculator","url":"https://mmandai.github.io/uk-rent-vs-buy/","description":"Free UK rent vs buy calculator. Compare buying vs renting over 10 years — equity built, deposit opportunity cost, total cost of ownership, break-even year.","applicationCategory":"FinanceApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},"dateModified":"2026-04"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is it better to rent or buy in the UK in 2026?","acceptedAnswer":{"@type":"Answer","text":"If you plan to stay for under 5 years, renting is usually better financially. If you plan to stay over 10 years, buying almost always wins financially in the UK because mortgage payments stay fixed while rents rise."}},{"@type":"Question","name":"How does stamp duty affect first-time buyers vs home movers?","acceptedAnswer":{"@type":"Answer","text":"First-time buyers pay 0% SDLT up to £300,000. Home movers pay standard rates: 0% up to £125,000, 2% on £125–250k, 5% on £250–925k. A first-time buyer purchasing at £300,000 pays £0 in stamp duty while a home mover pays £5,000."}},{"@type":"Question","name":"What is deposit opportunity cost and why does it matter?","acceptedAnswer":{"@type":"Answer","text":"When you use a deposit to buy a property, that money is tied up in bricks and mortar. The opportunity cost is what that money would have earned if invested elsewhere instead. A £30,000 deposit invested in a diversified index fund averaging 7% grows to £59,000 in 10 years."}},{"@type":"Question","name":"Why does buying look worse in the early years?","acceptedAnswer":{"@type":"Answer","text":"Because upfront costs are real and immediate — SDLT, solicitor fees, and survey must be paid on day one. It typically takes 5–7 years for the equity advantage of buying to overcome these upfront costs."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"MMDAI","item":"https://mmandai.github.io"},{"@type":"ListItem","position":2,"name":"UK Calculators","item":"https://mmandai.github.io"},{"@type":"ListItem","position":3,"name":"Rent vs Buy Calculator","item":"https://mmandai.github.io/uk-rent-vs-buy/"}]}]}
+</script>
+</head>
+<body>
+<div class="cookie-banner" id="cookieBanner" style="display:none;">
+  <p>We use cookies from Google Analytics and Google AdSense. See our <a href="https://mmandai.github.io/privacy/">Privacy Policy</a>.</p>
+  <div class="cookie-buttons">
+    <button class="cookie-btn cookie-accept" onclick="setCookieConsent('accepted')">Accept</button>
+    <button class="cookie-btn cookie-reject" onclick="setCookieConsent('rejected')">Reject</button>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="hd-inner">
+    <a href="https://mmandai.github.io" class="logo">MM<em>DAI</em></a>
+    <nav class="hd-nav">
+      <a href="#calculator">Calculator</a>
+      <a href="#explainer">How it works</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <section class="hero">
+    <div class="hero-kicker">— Free UK Property Tool —</div>
+    <h1>Rent vs <em>Buy</em> Calculator</h1>
+    <p class="hero-lead">The honest financial comparison — equity built vs deposit opportunity cost, total cost of ownership, year-by-year projection, and break-even analysis. Updated for 2026 UK <a href="https://mmandai.github.io/uk-sdlt-calculator/" style="color:var(--gold2);text-decoration:underline;">SDLT</a> rates and house price data. If buying to let rather than live, use the <a href="https://mmandai.github.io/uk-rental-yield/" style="color:var(--gold2);text-decoration:underline;">BTL yield calculator</a> instead.</p>
+    <div class="hero-pills">
+      <span class="pill">10-Year Projection</span>
+      <span class="pill">Equity vs Opportunity Cost</span>
+      <span class="pill">SDLT Included</span>
+      <span class="pill">FTB & Mover</span>
+      <span class="pill">Break-Even Year</span>
+      <span class="pill">Total Cost of Ownership</span>
+    </div>
+  </section>
+
+  
+  <!-- AdSense top banner -->
+  <div class="ad-slot ad-banner" data-ad-slot="top_banner">Advertisement</div>
+<section class="calc-section" id="calculator">
+    <div class="calc-layout">
+
+      <!-- INPUTS -->
+      <div class="panel">
+        <div class="panel-head">
+          <span class="panel-dot"></span>
+          <h2>Your Scenario</h2>
+        </div>
+        <div class="panel-body">
+
+          <div class="input-section">
+            <div class="input-section-title">Property (Buying)</div>
+            <div class="field">
+              <div class="field-label"><span>Property Price</span><em>£</em></div>
+              <div class="input-wrap has-prefix">
+                <span class="input-prefix">£</span>
+                <input type="number" id="price" value="300000" min="0" step="5000" oninput="calc()">
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label"><span>Buyer Type</span></div>
+              <select id="buyerType" onchange="calc()">
+                <option value="1" selected>1 — First-time buyer</option>
+                <option value="2">2 — Home mover</option>
+              </select>
+            </div>
+            <div class="field">
+              <div class="field-label"><span>Deposit</span><em>%</em></div>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="deposit" value="10" min="5" max="90" step="1" oninput="calc()">
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label"><span>Mortgage Rate</span><em>5yr fixed avg ~4.5–5.5%</em></div>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="mortRate" value="5.0" min="0" max="15" step="0.1" oninput="calc()">
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label"><span>Mortgage Term</span><em>years</em></div>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="mortTerm" value="25" min="5" max="40" step="1" oninput="calc()">
+                <span class="input-suffix">yr</span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label"><span>Annual Maintenance</span><em>% of property value</em></div>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="maint" value="1.0" min="0" max="5" step="0.1" oninput="calc()">
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label"><span>Service Charge (leasehold)</span><em>£/year, 0 if freehold</em></div>
+              <div class="input-wrap has-prefix">
+                <span class="input-prefix">£</span>
+                <input type="number" id="serviceCharge" value="0" min="0" step="100" oninput="calc()">
+              </div>
+            </div>
+          </div>
+
+          <div class="input-section">
+            <div class="input-section-title">Renting</div>
+            <div class="field">
+              <div class="field-label"><span>Current Monthly Rent</span><em>£/month</em></div>
+              <div class="input-wrap has-prefix">
+                <span class="input-prefix">£</span>
+                <input type="number" id="rent" value="1200" min="0" step="50" oninput="calc()">
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label"><span>Annual Rent Increase</span><em>UK avg 3–5%</em></div>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="rentInc" value="3.0" min="0" max="15" step="0.5" oninput="calc()">
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-section">
+            <div class="input-section-title">Assumptions</div>
+            <div class="field">
+              <div class="field-label"><span>Comparison Horizon</span><em>years</em></div>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="horizon" value="10" min="1" max="25" step="1" oninput="calc()">
+                <span class="input-suffix">yr</span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label"><span>Annual House Price Growth</span><em>UK long-run avg ~4%</em></div>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="hpi" value="3.0" min="0" max="15" step="0.5" oninput="calc()">
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label"><span>Deposit Investment Return</span><em>if invested instead</em></div>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="invRet" value="5.0" min="0" max="20" step="0.5" oninput="calc()">
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+            <div class="field">
+              <div class="field-label"><span>Solicitor + Survey</span><em>purchase costs</em></div>
+              <div class="input-wrap has-prefix">
+                <span class="input-prefix">£</span>
+                <input type="number" id="solPurch" value="2400" min="0" step="100" oninput="calc()">
+              </div>
+            </div>
+          </div>
+
+          <!-- METHODOLOGY -->
+          <div style="margin-top:28px;border-top:1px solid var(--rule);padding-top:24px;">
+            <div class="methodology-trigger" id="methTrigger" onclick="toggleMethodology()">
+              <span class="methodology-chevrons">↓</span>
+              <span class="methodology-trigger-label">Methodology</span>
+              <span class="methodology-chevrons">↓</span>
+            </div>
+            <div class="methodology-box" id="methBox">
+              <div class="methodology-inner">
+
+                <div class="meth-title">How this calculator works — formulas &amp; sources</div>
+
+                <div class="meth-grid">
+
+                  <div class="meth-block">
+                    <div class="meth-block-title">Total Cost of Buying</div>
+                    <div class="meth-formula">Total Buy Cost = Mortgage Payments + Property Tax + Insurance +<br>Maintenance − Equity Accumulated + SDLT + Legal + Survey</div>
+                    <div class="meth-note">Mortgage payments use the standard amortisation formula. Equity accumulates through capital repayment plus property appreciation at your specified annual growth rate. All costs are projected over the comparison horizon. Investors buying to let use the same equity calculation in the <a href="https://mmandai.github.io/uk-rental-yield/" style="color:var(--gold2);text-decoration:underline;">BTL yield calculator</a>. <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></div>
+                  </div>
+
+                  <div class="meth-block">
+                    <div class="meth-block-title">Total Cost of Renting</div>
+                    <div class="meth-formula">Total Rent Cost = Cumulative Rent Paid − Deposit Investment Return<br>Deposit Investment Return = Deposit × (1 + Annual Return)ⁿ − Deposit</div>
+                    <div class="meth-note">The deposit opportunity cost is the most important adjustment in any rent vs buy comparison. The deposit invested at your specified return rate represents what you give up by tying money into a property purchase instead. <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></div>
+                  </div>
+
+                  <div class="meth-block">
+                    <div class="meth-block-title">SDLT Calculation</div>
+                    <div class="meth-formula">First-Time Buyer: 0% on £0–£300k · 5% on £300–500k<br>Home Mover: 0% on £0–£125k · 2% on £125–250k · 5% on £250–925k<br>BTL: Standard + 5% surcharge on all bands</div>
+                    <div class="meth-note"><a href="https://mmandai.github.io/uk-sdlt-calculator/" style="color:var(--gold2);text-decoration:underline;">SDLT</a> is calculated using the correct banded method for the selected buyer type. The full SDLT cost is counted as an upfront purchase cost in year one. For <a href="https://mmandai.github.io/uk-rental-yield/" style="color:var(--gold2);text-decoration:underline;">BTL</a> investors, the 5% additional property surcharge also applies. <a href="https://mmandai.github.io/uk-sdlt-explained/" style="color:var(--gold2);text-decoration:underline;">SDLT explained</a></div>
+                  </div>
+
+                  <div class="meth-block">
+                    <div class="meth-block-title">Break-Even Year</div>
+                    <div class="meth-formula">Break-Even = Year where Cumulative Buy Cost &lt; Cumulative Rent Cost<br>(calculated annually over the comparison horizon)</div>
+                    <div class="meth-note">The break-even year is typically 5–7 years in the UK due to upfront <a href="https://mmandai.github.io/uk-sdlt-calculator/" style="color:var(--gold2);text-decoration:underline;">SDLT</a> and legal costs. Before this point, renting is usually more cost-effective even if mortgage payments are lower than rent. <a href="https://mmandai.github.io/uk-sdlt-explained/" style="color:var(--gold2);text-decoration:underline;">SDLT explained</a> · <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></div>
+                  </div>
+
+                  <div class="meth-block">
+                    <div class="meth-block-title">Buying Advantage</div>
+                    <div class="meth-formula">Buying Advantage = Total Rent Cost − Total Buy Cost<br>Positive = Buying is cheaper over the horizon<br>Negative = Renting is cheaper over the horizon</div>
+                    <div class="meth-note">The buying advantage represents the total financial difference over your comparison horizon. This includes all costs and the equity you would have accumulated through property appreciation and mortgage repayment. <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></div>
+                  </div>
+
+                </div>
+
+                <div class="meth-sources"><strong>Sources:</strong> HMRC SDLT guidance (April 2025 rates) · UK Finance mortgage amortisation standards · ONS UK House Price Index (long-run appreciation data) · BoE base rate history</div>
+                <div class="meth-updated">Last reviewed: April 2026</div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RESULTS -->
+      <div class="results-panel">
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-dot"></span>
+            <h2>Comparison Results</h2>
+          </div>
+          <div class="panel-body">
+
+            <!-- Winner -->
+            <div class="winner-display" id="winnerDisplay">
+              <div class="winner-label">Buying Advantage over Renting</div>
+              <div class="winner-amount" id="winnerAmount">—</div>
+              <div class="winner-sub" id="winnerSub">—</div>
+            </div>
+
+            <!-- Verdict -->
+            <div class="verdict" id="verdict">
+              <span class="verdict-icon" id="vIcon">⬤</span>
+              <span id="vText">Calculating…</span>
+            </div>
+
+            <!-- Key metrics -->
+            <div class="metric-grid">
+              <div class="metric" id="m-monthly">
+                <div class="m-label">Monthly Buy vs Rent</div>
+                <div class="m-value" id="mMonthly">—</div>
+                <div class="m-sub">buy costs more per month</div>
+              </div>
+              <div class="metric" id="m-equity">
+                <div class="m-label">Equity at Year <span id="horizonLabel">10</span></div>
+                <div class="m-value" id="mEquity">—</div>
+                <div class="m-sub">property − mortgage</div>
+              </div>
+              <div class="metric" id="m-sdlt">
+                <div class="m-label">SDLT Due</div>
+                <div class="m-value" id="mSdlt">—</div>
+                <div class="m-sub">stamp duty on purchase</div>
+              </div>
+              <div class="metric" id="m-depret">
+                <div class="m-label">Deposit if Invested</div>
+                <div class="m-value" id="mDepret">—</div>
+                <div class="m-sub">at year <span id="horizonLabel2">10</span></div>
+              </div>
+            </div>
+
+            <!-- Comparison table -->
+            <div class="result-block">
+              <div class="result-block-title">Cost Breakdown</div>
+              <table class="compare-table">
+                <thead>
+                  <tr>
+                    <th class="col-label"></th>
+                    <th class="col-buy">Buying</th>
+                    <th class="col-rent">Renting</th>
+                  </tr>
+                </thead>
+                <tbody id="compareBody"></tbody>
+              </table>
+            </div>
+
+            <!-- Year projection -->
+            <div class="proj-section">
+              <div class="proj-title">Year-by-Year Buy Advantage</div>
+              <div class="proj-bars" id="projBars"></div>
+              <div class="proj-legend">
+                <span><span class="legend-dot" style="background:var(--green)"></span>Buying ahead</span>
+                <span><span class="legend-dot" style="background:var(--blue)"></span>Renting ahead</span>
+              </div>
+            </div>
+
+            <!-- AdSense rect -->
+            <div class="ad-slot ad-rect" data-ad-slot="results_rect">Advertisement</div>
+            
+            <!-- Affiliate -->
+            <div class="affiliate">
+              <h4>Download the Full Excel Version</h4>
+              <p>25-year projection, year-by-year equity tracking, and UK Rent vs Buy Guide — all included.</p>
+              <a href="https://imemyselfai.gumroad.com/l/ukbuyvsrentcalc" target="_blank" class="btn-aff" id="btnAffiliate">Download Excel — £14.99 →</a>
+            </div>
+
+</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div style="height:48px;"></div>
+
+  <!-- EXPLAINER -->
+  <section class="explainer" id="explainer">
+    <div style="text-align:center">
+      <div class="section-kicker">How it works</div>
+      <h2 class="section-title">The question most people ask <em>wrong</em></h2>
+      <p class="section-lead">Most rent vs buy comparisons only look at monthly payments. The real comparison is much more complex — and much more interesting. <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained in full</a></p>
+    </div>
+    <div class="explain-grid">
+
+      <div class="explain-card">
+        <div class="ec-num">DEPOSIT OPPORTUNITY COST</div>
+        <div class="ec-title">The number most ignore</div>
+        <p class="ec-body">When you buy, your deposit is locked in the property. A renter could invest that same money. If you put £30,000 in a global index fund returning 7%, it becomes £59,000 in 10 years. This calculator compares what the deposit earns in property equity versus what it would earn if invested instead. Alternatively, that deposit could be the start of a <a href="https://mmandai.github.io/uk-rental-yield/" style="color:var(--gold2);text-decoration:underline;">BTL</a> investment. <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></p>
+      </div>
+
+      <div class="explain-card">
+        <div class="ec-num">EQUITY BUILDING</div>
+        <div class="ec-title">Forced savings through leverage</div>
+        <p class="ec-body">Every mortgage payment reduces your debt. Every year of house price growth increases your asset value. The combination is powerful — a 10% deposit controlling 100% of an asset growing at 3% annually generates 30% return on your cash in year one. No investment account gives you this leverage automatically. Investors who want leverage on rental income use the same principle with a <a href="https://mmandai.github.io/uk-rental-yield/" style="color:var(--gold2);text-decoration:underline;">BTL</a> or <a href="https://mmandai.github.io/uk-hmo-calculator/" style="color:var(--gold2);text-decoration:underline;">HMO</a>. <a href="https://mmandai.github.io/uk-hmo-vs-btl/" style="color:var(--gold2);text-decoration:underline;">HMO vs BTL</a></p>
+      </div>
+
+      <div class="explain-card">
+        <div class="ec-num">SDLT (STAMP DUTY)</div>
+        <div class="ec-title">The upfront drag on buying</div>
+        <p class="ec-body">Stamp duty is the single biggest reason short-term buying loses to renting. A first-time buyer purchasing at £300,000 pays £0 in <a href="https://mmandai.github.io/uk-sdlt-calculator/" style="color:var(--gold2);text-decoration:underline;">SDLT</a> — but a home mover pays £5,000. On a £500,000 purchase the home mover pays £12,500. This calculator applies the correct 2026 <a href="https://mmandai.github.io/uk-sdlt-calculator/" style="color:var(--gold2);text-decoration:underline;">SDLT</a> rates for your buyer type automatically, making it a real drag on the early years of ownership. <a href="https://mmandai.github.io/uk-sdlt-explained/" style="color:var(--gold2);text-decoration:underline;">SDLT explained</a> · <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></p>
+      </div>
+
+      <div class="explain-card">
+        <div class="ec-num">RENT INFLATION</div>
+        <div class="ec-title">Why renting gets expensive</div>
+        <p class="ec-body">UK rents rose an average of 8–9% in 2023 and 6–7% in 2024. A £1,200/month rent growing at 3% becomes £1,612/month in 10 years. Your mortgage payment stays fixed. This is the inflation hedge that makes long-term buying compelling even when it looks expensive month-to-month in year one. Landlords benefit from this rent growth — see the <a href="https://mmandai.github.io/uk-rental-yield/" style="color:var(--gold2);text-decoration:underline;">BTL yield calculator</a> to model income from the other side. <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></p>
+      </div>
+
+      <div class="explain-card">
+        <div class="ec-num">THE BREAK-EVEN POINT</div>
+        <div class="ec-title">When buying finally wins</div>
+        <p class="ec-body">In the early years, renting almost always looks better — no <a href="https://mmandai.github.io/uk-sdlt-calculator/" style="color:var(--gold2);text-decoration:underline;">SDLT</a>, no maintenance, higher monthly flexibility. Buying typically breaks even financially after 5–7 years in UK markets. The projection chart below the calculator shows the year-by-year advantage, making the crossover point visible. Under 5 years: rent. Over 10 years: buy almost always wins. <a href="https://mmandai.github.io/uk-sdlt-explained/" style="color:var(--gold2);text-decoration:underline;">SDLT explained</a> · <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></p>
+      </div>
+
+      <div class="explain-card">
+        <div class="ec-num">WHAT THIS IGNORES</div>
+        <div class="ec-title">The qualitative side</div>
+        <p class="ec-body">Numbers only tell half the story. Buying gives security, permanence, and freedom to decorate. Renting gives flexibility, no maintenance liability, and geographic mobility. A job change, relationship change, or city move can make the "financially better to buy" calculation irrelevant. This calculator handles the numbers — you handle the life decisions. If you’re buying to invest rather than to live, the <a href="https://mmandai.github.io/uk-rental-yield/" style="color:var(--gold2);text-decoration:underline;">BTL</a> and <a href="https://mmandai.github.io/uk-hmo-calculator/" style="color:var(--gold2);text-decoration:underline;">HMO</a> calculators are better starting points. <a href="https://mmandai.github.io/uk-hmo-vs-btl/" style="color:var(--gold2);text-decoration:underline;">HMO vs BTL</a></p>
+      </div>
+
+    </div>
+  </section>
+
+  <hr style="border:none;border-top:1px solid var(--rule);margin:0;">
+
+  <section class="faq-section" id="faq">
+    <div style="padding-top:64px;text-align:center;">
+      <div class="section-kicker">FAQ</div>
+      <h2 class="section-title">Common questions</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Is it better to rent or buy in the UK in 2026?</div>
+        <div class="faq-a">There's no universal answer — it depends on your deposit size, the property price, your rental cost, and how long you plan to stay. As a rule of thumb: if you plan to stay for <strong>under 5 years</strong>, renting is usually better financially because SDLT, legal costs, and estate agent fees on eventual sale take years to recoup. If you plan to stay <strong>over 10 years</strong>, buying almost always wins financially in the UK because mortgage payments stay fixed while rents rise, and equity compounds over time. This calculator gives you the exact numbers for your specific situation. <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How does stamp duty affect first-time buyers vs home movers?</div>
+        <div class="faq-a">First-time buyers pay <strong>0% SDLT up to £300,000</strong> and 5% on the portion between £300,001–£500,000. Above £500,000, FTB relief disappears and standard rates apply. Home movers pay standard rates from April 2025: 0% up to £125,000, 2% on £125–250k, 5% on £250–925k, and so on. This means a first-time buyer purchasing at £300,000 pays £0 in stamp duty — a significant advantage over a home mover who would pay £5,000 on the same property. The calculator applies the correct bands automatically. <a href="https://mmandai.github.io/uk-sdlt-explained/" style="color:var(--gold2);text-decoration:underline;">SDLT explained</a> · <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What is deposit opportunity cost and why does it matter?</div>
+        <div class="faq-a">When you use a deposit to buy a property, that money is tied up in bricks and mortar. The <strong>opportunity cost</strong> is what that money would have earned if invested elsewhere instead. A £30,000 deposit invested in a diversified index fund averaging 7% annually grows to £59,000 in 10 years. This calculator compares the deposit invested (rent scenario) against the equity built in the property (buy scenario) — which is the honest comparison most rent vs buy tools skip entirely. If you’d use the deposit for a <a href="https://mmandai.github.io/uk-rental-yield/" style="color:var(--gold2);text-decoration:underline;">BTL</a> investment instead, the <a href="https://mmandai.github.io/uk-rental-yield/" style="color:var(--gold2);text-decoration:underline;">BTL yield calculator</a> models that scenario. <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How accurate are the house price growth and investment return assumptions?</div>
+        <div class="faq-a">These are assumptions, not predictions — and the result is highly sensitive to them. UK house prices have grown an average of <strong>~4% annually</strong> over the past 40 years, but with significant regional variation (London and South East much higher historically, northern regions more volatile). Global equity index funds have returned <strong>7–9% annually</strong> over long periods, but past performance doesn't guarantee future returns. The honest answer: run the calculator at multiple combinations (3%/7%, 5%/5%, 6%/4%) to see how the answer changes. The direction of the result is usually more reliable than the exact figure. <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Should I buy if I can only afford a 5–10% deposit?</div>
+        <div class="faq-a">A small deposit makes buying more expensive — higher loan-to-value means higher mortgage rates, and the interest cost on a larger loan is significant. But small deposits aren't necessarily wrong for first-time buyers. A <strong>5% deposit on a £250,000 property</strong> means a £12,500 deposit vs £52,000+ in mortgage interest over 10 years — but the mortgage replaces rent, and equity still builds. The key question is whether your monthly mortgage payment is affordable long-term, not just today. Use this calculator with your actual deposit and compare it against your actual rent to see the honest comparison. For landlords wondering whether to buy additional properties, the <a href="https://mmandai.github.io/uk-rental-yield/" style="color:var(--gold2);text-decoration:underline;">BTL yield calculator</a> and <a href="https://mmandai.github.io/uk-sdlt-calculator/" style="color:var(--gold2);text-decoration:underline;">SDLT calculator</a> are the right tools. <a href="https://mmandai.github.io/uk-sdlt-explained/" style="color:var(--gold2);text-decoration:underline;">SDLT explained</a></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Why does buying look worse in the early years?</div>
+        <div class="faq-a">Because the upfront costs are real and immediate — SDLT, solicitor fees, and survey must be paid on day one. Meanwhile the equity advantage of buying takes years to accumulate. In year one, a buyer has paid £5,000+ in transaction costs before making a single mortgage payment. A renter invested the equivalent deposit. It typically takes <strong>5–7 years</strong> for the equity advantage of buying to overcome these upfront costs. The year-by-year projection in the results panel shows exactly when the lines cross for your specific numbers. <a href="https://mmandai.github.io/uk-sdlt-explained/" style="color:var(--gold2);text-decoration:underline;">SDLT explained</a> · <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/" style="color:var(--gold2);text-decoration:underline;">Rent vs Buy explained</a></div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <span class="footer-logo">MM<em>DAI</em></span>
+        <div class="footer-links">
+           <a href="https://imemyselfai.gumroad.com/l/ukbuyvsrentcalc" target="_blank">Download Excel</a>
+           <a href="https://mmandai.github.io/uk-rental-yield/">BTL Yield Calculator</a>
+           <a href="https://mmandai.github.io/uk-sdlt-calculator/">SDLT Calculator</a>
+           <a href="https://mmandai.github.io/uk-flip-and-profit/">Flip Profit Calculator</a>
+           <a href="https://mmandai.github.io/uk-hmo-calculator/">HMO Calculator</a>
+           <a href="https://mmandai.github.io/uk-section24/">Section 24 Calculator</a>
+        <a href="https://mmandai.github.io/uk-rent-vs-buy-explained/">Rent vs Buy Explained</a>
+           <a href="https://mmandai.github.io/uk-section-24-explained/">Section 24 Explained</a>
+           <a href="https://mmandai.github.io/uk-sdlt-explained/">SDLT Explained</a>
+           <a href="https://mmandai.github.io/uk-hmo-vs-btl/">HMO vs BTL</a>
+           <a href="https://mmandai.github.io/uk-glossary/">UK Glossary</a>
+           <a href="https://mmandai.github.io/about/">About MMDAI</a>
+        </div>
+    </div>
+    <p class="footer-disclaimer">
+      This calculator is provided for informational and educational purposes only. It does not constitute financial, tax, investment, or legal advice. All results are estimates based on assumptions you provide — actual house price growth, rental increases, and investment returns will differ. Always consult an independent financial adviser before making property or investment decisions. MMDAI accepts no liability for any financial loss arising from use of this tool. Information correct as of April 2026.
+    </p>
+  </div>
+</footer>
+
+<script>
+function v(id){return parseFloat(document.getElementById(id).value)||0;}
+function sel(id){return parseInt(document.getElementById(id).value);}
+function el(id){return document.getElementById(id);}
+function fmtGBP(n,short=false){
+  if(isNaN(n)) return '—';
+  const abs=Math.abs(n);
+  const s=short&&abs>=1000?'£'+(abs/1000).toFixed(1)+'k':'£'+Math.round(abs).toLocaleString('en-GB');
+  return n<0?'-'+s:s;
+}
+function colour(id,state){
+  const m=el(id);if(!m)return;
+  m.classList.remove('good','warn','bad','blue');
+  if(state) m.classList.add(state);
+}
+
+// SDLT — mirrors Excel exactly (C7=1 FTB, C7=2 mover)
+function calcSDLT(price, buyerType){
+  if(buyerType===1){
+    if(price<=300000) return 0;
+    if(price<=500000) return (price-300000)*0.05;
+    if(price<=925000) return (price-125000)*0.05-125000*0.03;
+    if(price<=1500000) return 125000*0.02+675000*0.05+(price-925000)*0.10;
+    return 125000*0.02+675000*0.05+575000*0.10+(price-1500000)*0.12;
+  } else {
+    if(price<=125000) return 0;
+    if(price<=250000) return (price-125000)*0.02;
+    if(price<=925000) return 125000*0.02+(price-250000)*0.05;
+    if(price<=1500000) return 125000*0.02+675000*0.05+(price-925000)*0.10;
+    return 125000*0.02+675000*0.05+575000*0.10+(price-1500000)*0.12;
+  }
+}
+
+function calc(){
+  const price       = v('price');
+  const buyerType   = sel('buyerType');
+  const depPct      = v('deposit');
+  const mortRate    = v('mortRate');
+  const mortTerm    = v('mortTerm');
+  const maint       = v('maint');
+  const svc         = v('serviceCharge');
+  const rent        = v('rent');
+  const rentInc     = v('rentInc');
+  const horizon     = v('horizon');
+  const hpi         = v('hpi');
+  const invRet      = v('invRet');
+  const solPurch    = v('solPurch');
+
+  // Update horizon labels
+  el('horizonLabel').textContent = horizon;
+  el('horizonLabel2').textContent = horizon;
+
+  // Core buy figures
+  const sdlt    = calcSDLT(price, buyerType);
+  const deposit = price * depPct/100;
+  const loan    = price - deposit;
+  const upfront = deposit + sdlt + solPurch;  // C24 = total upfront
+
+  // Monthly mortgage
+  const mr = mortRate/100/12;
+  const n  = mortTerm*12;
+  const monthlyMort = mr===0 ? loan/(n) : loan*(mr*(1+mr)**n)/((1+mr)**n-1);
+
+  // Property value at horizon
+  const propVal = price * (1+hpi/100)**horizon;
+
+  // Remaining mortgage at horizon
+  const remBal = mr===0
+    ? Math.max(0, loan - monthlyMort*horizon*12)
+    : Math.max(0, loan*(((1+mr)**n-(1+mr)**(horizon*12))/((1+mr)**n-1)));
+
+  // Equity
+  const equity = propVal - remBal;
+
+  // Total mortgage payments over horizon
+  const totalMort = monthlyMort*12*horizon;
+
+  // Total maintenance
+  const totalMaint = price*maint/100*horizon*(1+hpi/100)**(horizon/2);
+
+  // Total service charge
+  const totalSvc = svc*horizon;
+
+  // Total rent paid (geometric series)
+  const g = rentInc/100;
+  const totalRent = g===0
+    ? rent*12*horizon
+    : rent*12*((1-(1+g)**horizon)/(1-(1+g)));
+
+  // Deposit invested (renter invests deposit + SDLT + solicitor)
+  const depInvested = upfront * (1+invRet/100)**horizon;
+  const depGrowth   = depInvested - upfront;
+
+  // Positions
+  const buyNet  = equity - sdlt - solPurch - totalMort - totalMaint - totalSvc;
+  const rentNet = depInvested - totalRent;
+  const buyAdv  = buyNet - rentNet;
+
+  // Monthly comparison
+  const monthlyBuy  = monthlyMort + price*maint/100/12 + svc/12;
+  const monthlyDiff = monthlyBuy - rent;
+
+  // ── DOM updates ──
+
+  // Winner display
+  const wd=el('winnerDisplay');
+  wd.classList.remove('buy','rent','close');
+  if(buyAdv>50000){wd.classList.add('buy');}
+  else if(buyAdv>0){wd.classList.add('close');}
+  else{wd.classList.add('rent');}
+  el('winnerAmount').textContent=(buyAdv>=0?'+':'')+fmtGBP(buyAdv);
+  el('winnerSub').textContent = buyAdv>0
+    ? `Buying leaves you ${fmtGBP(buyAdv)} better off after ${horizon} years`
+    : `Renting leaves you ${fmtGBP(Math.abs(buyAdv))} better off after ${horizon} years`;
+
+  // Verdict
+  const vEl=el('verdict');
+  vEl.className='verdict';
+  if(buyAdv>50000){
+    vEl.classList.add('good');
+    el('vIcon').textContent='✓';
+    el('vText').textContent=`Buying wins — stronger financial position over ${horizon} years. Consider buying if your plans are stable.`;
+  } else if(buyAdv>0){
+    vEl.classList.add('warn');
+    el('vIcon').textContent='⚠';
+    el('vText').textContent='Buying slightly ahead — but the margin is thin. Flexibility of renting may be worth more.';
+  } else {
+    vEl.classList.add('blue');
+    el('vIcon').textContent='✓';
+    el('vText').textContent=`Renting wins over ${horizon} years — invest the deposit and keep renting at these assumptions.`;
+  }
+
+  // Metrics
+  el('mMonthly').textContent=(monthlyDiff>=0?'+':'')+fmtGBP(monthlyDiff)+'/mo';
+  el('mEquity').textContent=fmtGBP(equity);
+  el('mSdlt').textContent=fmtGBP(sdlt);
+  el('mDepret').textContent=fmtGBP(depInvested);
+
+  colour('m-monthly', monthlyDiff>500?'bad':monthlyDiff>0?'warn':'good');
+  colour('m-equity',  equity>loan?'good':'warn');
+  colour('m-sdlt',    sdlt===0?'good':sdlt<10000?'warn':'bad');
+  colour('m-depret',  'blue');
+
+  // Comparison table
+  const rows=[
+    {section:'Monthly Costs'},
+    {label:'Monthly Payment / Rent', buy:fmtGBP(monthlyMort), rent:fmtGBP(rent)},
+    {label:'Monthly Maintenance', buy:fmtGBP(price*maint/100/12+svc/12), rent:'—'},
+    {label:'Total Monthly Cost', buy:fmtGBP(monthlyBuy), rent:fmtGBP(rent), total:true},
+    {section:`Over ${horizon} Years`},
+    {label:'SDLT', buy:fmtGBP(sdlt), rent:'—'},
+    {label:'Solicitor + Survey', buy:fmtGBP(solPurch), rent:'—'},
+    {label:'Total Mortgage Payments', buy:fmtGBP(totalMort), rent:'—'},
+    {label:'Maintenance + Service Charge', buy:fmtGBP(totalMaint+totalSvc), rent:'—'},
+    {label:'Total Rent Paid', buy:'—', rent:fmtGBP(totalRent)},
+    {section:'End of Period'},
+    {label:'Property Value', buy:fmtGBP(propVal), rent:'N/A'},
+    {label:'Remaining Mortgage', buy:fmtGBP(remBal), rent:'—'},
+    {label:'Equity / Invested Deposit', buy:fmtGBP(equity), rent:fmtGBP(depInvested), total:true},
+  ];
+  let html='';
+  rows.forEach(row=>{
+    if(row.section){
+      html+=`<tr class="section-hdr"><td colspan="3">${row.section}</td></tr>`;
+    } else if(row.total){
+      html+=`<tr class="total-row"><td class="label">${row.label}</td><td class="buy-val">${row.buy}</td><td class="rent-val">${row.rent}</td></tr>`;
+    } else {
+      html+=`<tr><td class="label">${row.label}</td><td class="buy-val">${row.buy}</td><td class="rent-val">${row.rent}</td></tr>`;
+    }
+  });
+  el('compareBody').innerHTML=html;
+
+  // Year projection bars
+  const maxHorizon = Math.min(horizon, 20);
+  let advantages=[];
+  for(let yr=1;yr<=maxHorizon;yr++){
+    const pv = price*(1+hpi/100)**yr;
+    const rb = mr===0
+      ? Math.max(0,loan-monthlyMort*yr*12)
+      : Math.max(0,loan*(((1+mr)**n-(1+mr)**(yr*12))/((1+mr)**n-1)));
+    const eq = pv-rb;
+    const cr = g===0 ? rent*12*yr : rent*12*((1-(1+g)**yr)/(1-(1+g)));
+    const di = upfront*(1+invRet/100)**yr;
+    const tm = monthlyMort*12*yr;
+    const tm2 = price*maint/100*yr*(1+hpi/100)**(yr/2) + svc*yr;
+    const buyN = eq-sdlt-solPurch-tm-tm2;
+    const rentN = di-cr;
+    advantages.push(buyN-rentN);
+  }
+  const maxAbs = Math.max(...advantages.map(Math.abs), 1);
+  let barsHTML='';
+  for(let i=0;i<maxHorizon;i++){
+    const yr=i+1;
+    const adv=advantages[i];
+    const pct=Math.min(Math.abs(adv)/maxAbs*100,100).toFixed(1);
+    const isAhead=adv>0;
+    const color=isAhead?'var(--green)':'var(--blue)';
+    barsHTML+=`<div class="proj-row">
+      <span class="proj-yr">${yr}</span>
+      <div class="proj-track">
+        <div class="${isAhead?'proj-bar-buy':'proj-bar-rent'}" style="width:${pct}%;background:${color};"></div>
+      </div>
+      <span class="proj-diff" style="color:${color}">${adv>=0?'+':''}${fmtGBP(adv,true)}</span>
+    </div>`;
+  }
+  el('projBars').innerHTML=barsHTML;
+}
+
+function toggleFaq(faqEl){
+  const item=faqEl.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen){
+    item.classList.add('open');
+    if(typeof gtag!=='undefined')gtag('event','faq_open',{event_category:'engagement',event_label:faqEl.textContent.trim().substring(0,60)});
+  }
+}
+
+calc();
+
+// Analytics
+el('btnAffiliate').addEventListener('click',function(){
+  if(typeof gtag!=='undefined')gtag('event','affiliate_click',{event_category:'conversion',event_label:'rvb_excel_download'});
+});
+document.querySelectorAll('.footer-links a').forEach(function(a){
+  a.addEventListener('click',function(){
+    if(typeof gtag!=='undefined')gtag('event','footer_link_click',{event_category:'navigation',event_label:this.textContent.trim()});
+  });
+});
+var calcEngaged=false;
+document.querySelectorAll('input,select').forEach(function(inp){
+  inp.addEventListener('change',function(){
+    if(!calcEngaged){calcEngaged=true;
+      if(typeof gtag!=='undefined')gtag('event','calculator_first_interaction',{event_category:'engagement',event_label:'rvb_calculator'});
+    }
+    if(typeof gtag!=='undefined')gtag('event','calculator_input_changed',{event_category:'calculator',event_label:inp.id||'unknown'});
+  });
+});
+el('buyerType').addEventListener('change',function(){
+  if(typeof gtag!=='undefined')gtag('event','buyer_type_selected',{event_category:'calculator',event_label:this.options[this.selectedIndex].text});
+});
+var scrollMarks={25:false,50:false,75:false,100:false};
+window.addEventListener('scroll',function(){
+  var pct=Math.round((window.scrollY+window.innerHeight)/document.body.scrollHeight*100);
+  [25,50,75,100].forEach(function(mark){
+    if(pct>=mark&&!scrollMarks[mark]){scrollMarks[mark]=true;
+      if(typeof gtag!=='undefined')gtag('event','scroll_depth',{event_category:'engagement',event_label:mark+'%'});
+    }
+  });
+},{passive:true});
+var secObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      if(typeof gtag!=='undefined')gtag('event','section_viewed',{event_category:'engagement',event_label:entry.target.id||'unknown'});
+      secObs.unobserve(entry.target);
+    }
+  });
+},{threshold:0.3});
+['calculator','explainer','faq'].forEach(function(id){
+  var s=document.getElementById(id);if(s)secObs.observe(s);
+});
+var timeMarks={30:false,60:false,180:false};var t0=Date.now();
+setInterval(function(){
+  var sec=Math.round((Date.now()-t0)/1000);
+  [[30,'30s'],[60,'60s'],[180,'3min']].forEach(function(p){
+    if(sec>=p[0]&&!timeMarks[p[0]]){timeMarks[p[0]]=true;
+      if(typeof gtag!=='undefined')gtag('event','time_on_page',{event_category:'engagement',event_label:p[1]});
+    }
+  });
+},5000);
+
+// Ad slot observer
+var adObserver = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      if(typeof gtag!=='undefined')gtag('event','ad_slot_visible',{event_category:'ads',event_label:entry.target.dataset.adSlot||'unknown'});
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.ad-slot').forEach(function(slot,i){
+  slot.dataset.adSlot=['top_banner','results_rect','mid_banner'][i]||'slot_'+i;
+  adObserver.observe(slot);
+});
+
+function setCookieConsent(c){localStorage.setItem('cookieConsent',c);document.getElementById('cookieBanner').style.display='none';if(c==='accepted')loadAnalytics();}
+if(!localStorage.getItem('cookieConsent')){document.getElementById('cookieBanner').style.display='flex';}
+
+function toggleMethodology(){
+  const trigger=document.getElementById('methTrigger');
+  const box=document.getElementById('methBox');
+  const isOpen=trigger.classList.contains('open');
+  trigger.classList.toggle('open',!isOpen);
+  box.classList.toggle('open',!isOpen);
+  if(!isOpen){
+    setTimeout(function(){box.scrollIntoView({behavior:'smooth',block:'nearest'});},50);
+    if(typeof gtag!=='undefined')gtag('event','methodology_opened',{event_category:'engagement',event_label:'rent_vs_buy'});
+  }
+}
+</script>
+</body>
+</html>
